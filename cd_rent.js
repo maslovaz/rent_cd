@@ -6,18 +6,24 @@ db.on('error', console.error.bind(console, 'connection error:'));
 //  // yay!
 //});
 
+//validators
+function directorNumValidator(val) {
+  return val.size() == 'something';
+}
+
 //schemas
 var genreSchema = mongoose.Schema({
 	genreName: {
 		type: String,
-		required: true
-		//unique: true,
+		required: true,
+		unique: true
 	}
 });
 var studioSchema = mongoose.Schema({
 	studioName: {
 		type: String,
-		required: true
+		required: true,
+		unique: true
 	}
 });
 var actorSchema = mongoose.Schema({
@@ -74,12 +80,11 @@ var catalogueSchema = mongoose.Schema({
 	actorList: {
 		type: [mongoose.Schema.Types.ObjectId],
 		required: false
-		//toDo: validate-can be empty
 	},
 	directorList: {
 		type: [mongoose.Schema.Types.ObjectId],
-		required: true
-		//toDo: validate-one is needed or >
+		required: true,
+		validate: directorNumValidator
 	}
 });
 
